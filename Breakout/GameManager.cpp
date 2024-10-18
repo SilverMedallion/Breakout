@@ -110,6 +110,10 @@ void GameManager::levelComplete()
     _levelComplete = true;
 }
 
+void GameManager::powerupEffect(POWERUPS pu, float t)
+{
+}
+
 sf::RenderWindow* GameManager::getWindow() const { return _window; }
 UI* GameManager::getUI() const { return _ui; }
 Paddle* GameManager::getPaddle() const { return _paddle; }
