@@ -17,20 +17,22 @@ int main()
 
     //set up socket to connect to server
     sf::TcpSocket socket;
-    socket.setBlocking(false);      //if error binding listener still run game solo 
+    //socket.setBlocking(false);      //if error binding listener still run game solo 
 
     sf::Socket::Status status = socket.connect("192.168.0.72", 53000);
-    if (status != sf::Socket::Done)
-    {
-        // error..
-        std::cout << "Error binding listener to a port" << std::endl;
-    }
-    else if (status == sf::Socket::Done)
-    {
-        //successfull connectin to server
-        std::cout << "CONNECTED TO SERVER !!!!!!!!!!!!!!" << std::endl;
-    }
-
+    do {
+        
+        if (status != sf::Socket::Done)
+        {
+            // error..
+            std::cout << "Error binding listener to a port" << std::endl;
+        }
+        else if (status == sf::Socket::Done)
+        {
+            //successfull connectin to server
+            std::cout << "CONNECTED TO SERVER !!!!!!!!!!!!!!" << std::endl;
+        }
+    } while (status != sf::Socket::Done);
 
 
     while (window.isOpen())

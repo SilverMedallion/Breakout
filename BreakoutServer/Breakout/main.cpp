@@ -20,27 +20,19 @@ int main()
     listener.setBlocking(false);      //if error binding listener still run game solo 
 
     // bind the listener to a port
-    if (listener.listen(53000) != sf::Socket::Done)
+    if (listener.listen(53000) == sf::Socket::Done)
     {
-        // error..
-        std::cout << "Error binding listener to a port" << std::endl;
+        std::cout << "Listener bound to port" << std::endl;
+    }
+    else {
+        std::cout << "ERROR binding listener to the port" << std::endl;
     }
 
     // accept a new connection and store it as client socket
     sf::TcpSocket client;               
     client.setBlocking(false); //set client as non blocking so if not accepted does not blo
     //accept client trying to connect
-    if (listener.accept(client) != sf::Socket::Done)
-    {
-        // error...
-        std::cout << "client cannot connect" << std::endl;
-
-    }
-    else if (listener.accept(client) == sf::Socket::Done)
-    {
-        std::cout << "CLIENT HAS CONNECTEC!!!!!!!!!!" << std::endl;
-    }
-
+    
     // use "client" to communicate with the connected client,
     // and continue to accept new connections with the listener
    
@@ -57,6 +49,11 @@ int main()
         deltaTime = clock.restart().asSeconds();
 
         gameManager.update(deltaTime);
+
+        //check for client connections
+        if (listener.accept(client) == sf::Socket::Done) {
+            std::cout << "client has connected " << std::endl;
+        }
 
         //send network data
 
