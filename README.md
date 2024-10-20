@@ -40,3 +40,5 @@ Implemented server listening and client connecting
 Having strange linking error, seems to be to do with the network library being set up wrong
 in project settings but can't figure out why it's not wokring. Added networking library to 
 linker dependencies but still not working
+Fixed Linker issue, dependencies were only set in release mode not debug.
+Successful client server connection with server version still wokring with no client connected.
