@@ -16,6 +16,15 @@ public:
     sf::FloatRect getBounds() const;
     void setWidth(float coeff, float duration);
 
+    //getters for bullet spawning
+    sf::Vector2f getPosition() {
+        return _sprite.getPosition();
+    }
+
+    sf::Vector2f getSize() {
+        return _sprite.getSize();
+    }
+
 private:
 
 

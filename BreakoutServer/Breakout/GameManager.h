@@ -10,6 +10,8 @@
 
 
 
+
+
 class GameManager {
 public:
     GameManager(sf::RenderWindow* window);
@@ -46,6 +48,11 @@ private:
     PowerupManager* _powerupManager;
     MessagingSystem* _messagingSystem;
     UI* _ui;
+
+    //To do
+    //player bullet manager
+    //enemy manager
+    //enemy bullet manager 
 
     static constexpr float PAUSE_TIME_BUFFER = 0.5f;
     static constexpr float POWERUP_FREQUENCY = 7.5f;    // time between minimum powerup spawn
