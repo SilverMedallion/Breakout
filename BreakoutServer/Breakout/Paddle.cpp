@@ -1,8 +1,8 @@
 #include "Paddle.h"
 #include <iostream>
 
-Paddle::Paddle(sf::RenderWindow* window)
-    : _window(window), _width(PADDLE_WIDTH), _timeInNewSize(0.0f), _isAlive(true)
+Paddle::Paddle(sf::RenderWindow* window, GameManager* gameManger)
+    : _window(window), _gameManager(gameManger), _width(PADDLE_WIDTH), _timeInNewSize(0.0f), _isAlive(true)
 {
     _sprite.setFillColor(sf::Color::Cyan);
     _sprite.setPosition((window->getSize().x - _width) / 2.0f, window->getSize().y - 50.0f);
@@ -33,6 +33,15 @@ void Paddle::moveRight(float dt)
     }
 }
 
+void Paddle::shoot()
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && _timeSinceLastShot <= 0.0f)
+    {
+        _gameManager->spawnBullet();
+        _timeSinceLastShot = _fireRate;
+    }
+}
+
 void Paddle::update(float dt)
 {
     if (_timeInNewSize > 0)
@@ -43,6 +52,13 @@ void Paddle::update(float dt)
     {
         setWidth(1.0f, 0.0f); // Reset to default width after duration
     }
+
+    //check if the player is shooting
+    shoot();
+
+    //update fire rate timer
+    if (_timeSinceLastShot > 0)
+        _timeSinceLastShot -= dt;
 }
 
 void Paddle::render()

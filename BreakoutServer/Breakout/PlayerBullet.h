@@ -8,29 +8,25 @@
 class PlayerBullet
 {
 public:
-    PlayerBullet(sf::RenderWindow* window, float velcoity, Paddle* paddle);
+    PlayerBullet(Paddle* paddle);
     ~PlayerBullet();
-
-    
-private:
-	int velocity = 1;
-	int damage = 1;
-
-
-       
     void update(float dt);
-    void render();
-    void setVelocity(float coeff, float duration);
+    void render(sf::RenderWindow* window);
+    sf::Vector2f getPosition();
+
+    
+
     
 
 private:
-    sf::CircleShape _bullet;
+    sf::RectangleShape _bullet;
     sf::Vector2f _direction;
     sf::RenderWindow* _window;
-    float _velocity;
-    bool _isAlive;
-    sf::Vector2f _direction;
+    float _velocity = 10.f; 
 
+    sf::Vector2f _bulletPosition;
+
+    bool _isAlive;
     
     Paddle* _paddle;
     

@@ -17,7 +17,7 @@ GameManager::GameManager(sf::RenderWindow* window)
 
 void GameManager::initialize()
 {
-    _paddle = new Paddle(_window);
+    _paddle = new Paddle(_window, this);
     _brickManager = new BrickManager(_window, this);
     _messagingSystem = new MessagingSystem(_window);
     _ball = new Ball(_window, 400.0f, this); 
@@ -26,6 +26,11 @@ void GameManager::initialize()
 
     // Create bricks
     _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
+}
+
+void GameManager::spawnBullet()
+{
+    _playerBullets.push_back(PlayerBullet(_paddle));
 }
 
 void GameManager::update(float dt)
@@ -84,8 +89,29 @@ void GameManager::update(float dt)
     // update everything 
     _paddle->update(dt);
     _ball->update(dt);
-    _powerupManager->update(dt);
+
+    //update bullets
+    for (auto bullet = _playerBullets.begin(); bullet != _playerBullets.end();)
+    {
+        bullet->update(dt);
+
+        //check if bullet off screen
+        if (bullet->getPosition().y < 0) {
+            bullet = _playerBullets.erase(bullet);
+        }
+        else
+        {
+            ++bullet;
+        }
+    }
+
+   
+
+
+   
+    
 }
+
 
 void GameManager::loseLife()
 {
@@ -103,6 +129,11 @@ void GameManager::render()
     _powerupManager->render();
     _window->draw(_masterText);
     _ui->render();
+
+    //render all bullets
+    for (PlayerBullet bulllet : _playerBullets) {
+        bulllet.render(_window);
+    }
 }
 
 void GameManager::levelComplete()

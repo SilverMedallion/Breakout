@@ -3,14 +3,17 @@
 #include <SFML/Graphics.hpp>
 #include "CONSTANTS.h"
 
+class GameManager; //forward declartion of game manager
+
 class Paddle
 {
 public:
-    Paddle(sf::RenderWindow* window);
+    Paddle(sf::RenderWindow* window, GameManager* gameManager);
     ~Paddle();
 
     void moveLeft(float dt);
     void moveRight(float dt);
+    void shoot();
     void update(float dt);
     void render();
     sf::FloatRect getBounds() const;
@@ -27,7 +30,9 @@ public:
 
 private:
 
-
+    GameManager* _gameManager;  //store reference to game manager
+    float _fireRate = 0.5f;
+    float _timeSinceLastShot=0.0f;
     sf::RenderWindow* _window;
     sf::RectangleShape _sprite;
     float _width = PADDLE_WIDTH;

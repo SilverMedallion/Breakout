@@ -7,6 +7,7 @@
 #include "PowerupManager.h"
 #include "MessagingSystem.h"
 #include "UI.h"
+#include "PlayerBullet.h"
 
 
 
@@ -16,6 +17,7 @@ class GameManager {
 public:
     GameManager(sf::RenderWindow* window);
     void initialize();
+    void spawnBullet();
     void update(float dt);
     void loseLife();
     void render();
@@ -50,7 +52,8 @@ private:
     UI* _ui;
 
     //To do
-    //player bullet manager
+    std::vector<PlayerBullet> _playerBullets;
+    
     //enemy manager
     //enemy bullet manager 
 

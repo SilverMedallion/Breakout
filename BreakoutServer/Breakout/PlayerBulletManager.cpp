@@ -20,6 +20,7 @@ void PlayerBulletManager::render()
 
 void PlayerBulletManager::spawnBullet()
 {
+	
 }
 
 void PlayerBulletManager::checkCollision()
