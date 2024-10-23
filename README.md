@@ -34,7 +34,7 @@ fire ball (green)
 # Time Details and Changelist
 <Add information to this section about the time you've taken for this task along with a professional changelist.>
 
-10mins
+10 mins
 Created Server Solution 
 Created Client Solution
 
@@ -47,3 +47,9 @@ linker dependencies but still not working
 60mins
 Fixed Linker issue, dependencies were only set in release mode not debug.
 Successful client server connection with server version still wokring with no client connected.
+
+120mins
+switched to implementing space invaders that runs in paralell with breakout for cool hybrid
+game. The game currently has a bunch of errors after I implemented player shooting and it's 
+making me feel really dumb. Submission is due so submitting as is with compile errors but I'm
+gonna go back and finish this cause it could be cool. 
