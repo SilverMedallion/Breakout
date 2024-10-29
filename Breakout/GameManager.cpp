@@ -17,7 +17,8 @@ GameManager::GameManager(sf::RenderWindow* window)
 
 void GameManager::initialize()
 {
-    _paddle = new Paddle(_window);
+    _paddle = new Paddle(_window,1);
+    _paddle2 = new Paddle(_window,2);
     _brickManager = new BrickManager(_window, this);
     _messagingSystem = new MessagingSystem(_window);
     _ball = new Ball(_window, 400.0f, this); 
@@ -81,8 +82,14 @@ void GameManager::update(float dt)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) _paddle->moveRight(dt);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) _paddle->moveLeft(dt);
 
+    //move paddle 2
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) _paddle2->moveRight(dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) _paddle2->moveLeft(dt);
+
+
     // update everything 
     _paddle->update(dt);
+    _paddle2->update(dt);
     _ball->update(dt);
     _powerupManager->update(dt);
 }
@@ -98,6 +105,7 @@ void GameManager::loseLife()
 void GameManager::render()
 {
     _paddle->render();
+    _paddle2->render();
     _ball->render();
     _brickManager->render();
     _powerupManager->render();
@@ -115,3 +123,4 @@ UI* GameManager::getUI() const { return _ui; }
 Paddle* GameManager::getPaddle() const { return _paddle; }
 BrickManager* GameManager::getBrickManager() const { return _brickManager; }
 PowerupManager* GameManager::getPowerupManager() const { return _powerupManager; }
+Paddle* GameManager::getPaddle2() const { return _paddle2; }

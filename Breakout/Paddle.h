@@ -6,7 +6,7 @@
 class Paddle
 {
 public:
-    Paddle(sf::RenderWindow* window);
+    Paddle(sf::RenderWindow* window, int playerNumber);
     ~Paddle();
 
     void moveLeft(float dt);

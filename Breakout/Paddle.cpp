@@ -1,13 +1,24 @@
 #include "Paddle.h"
 #include <iostream>
 
-Paddle::Paddle(sf::RenderWindow* window)
+Paddle::Paddle(sf::RenderWindow* window, int playerNumber)
     : _window(window), _width(PADDLE_WIDTH), _timeInNewSize(0.0f), _isAlive(true)
 {
+    if (playerNumber == 1) {
     _sprite.setFillColor(sf::Color::Cyan);
-    _sprite.setPosition((window->getSize().x - _width) / 2.0f, window->getSize().y - 50.0f);
+    _sprite.setPosition((window->getSize().x - _width) / 4.0f, window->getSize().y - 50.0f);
     _sprite.setSize(sf::Vector2f(_width, PADDLE_HEIGHT));
+
+    }
+
+    if (playerNumber == 2) {
+        _sprite.setFillColor(sf::Color::Green);
+        _sprite.setPosition((window->getSize().x - _width) / 2.0f, 50.f);
+        _sprite.setSize(sf::Vector2f(_width, PADDLE_HEIGHT));
+    }
 }
+
+
 
 Paddle::~Paddle()
 {
@@ -17,7 +28,7 @@ void Paddle::moveLeft(float dt)
 {
     float position = _sprite.getPosition().x;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && position > 0)
+    if ( position > 0)
     {
         _sprite.move(sf::Vector2f(-dt * PADDLE_SPEED, 0));
     }
@@ -27,7 +38,7 @@ void Paddle::moveRight(float dt)
 {
     float position = _sprite.getPosition().x;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && position < _window->getSize().x - _width)
+    if ( position < _window->getSize().x - _width)
     {
         _sprite.move(sf::Vector2f(dt * PADDLE_SPEED, 0));
     }

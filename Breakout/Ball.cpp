@@ -7,7 +7,7 @@ Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
 {
     _sprite.setRadius(RADIUS);
     _sprite.setFillColor(sf::Color::Cyan);
-    _sprite.setPosition(0, 300);
+    _sprite.setPosition(0, 50);
 }
 
 Ball::~Ball()
@@ -56,18 +56,20 @@ void Ball::update(float dt)
     // bounce on ceiling
     if (position.y <= 0 && _direction.y < 0)
     {
-        _direction.y *= -1;
+        _sprite.setPosition(0, 400);
+        _direction = { 1, -1 };
+        _gameManager->loseLife();
     }
 
     // lose life bounce
-    if (position.y > windowDimensions.y)
+    if (position.y > windowDimensions.y )
     {
         _sprite.setPosition(0, 300);
         _direction = { 1, 1 };
         _gameManager->loseLife();
     }
 
-    // collision with paddle
+    // collision with paddle1
     if (_sprite.getGlobalBounds().intersects(_gameManager->getPaddle()->getBounds()))
     {
         _direction.y *= -1; // Bounce vertically
@@ -77,6 +79,19 @@ void Ball::update(float dt)
 
         // Adjust position to avoid getting stuck inside the paddle
         _sprite.setPosition(_sprite.getPosition().x, _gameManager->getPaddle()->getBounds().top - 2 * RADIUS);
+    }
+
+    //collision wtth paddle2
+    if (_sprite.getGlobalBounds().intersects(_gameManager->getPaddle2()->getBounds()))
+    {
+        _direction.y = std::abs(_direction.y); // Bounce vertically down the way so clamp to positive
+
+        float paddlePositionProportion = (_sprite.getPosition().x - _gameManager->getPaddle2()->getBounds().left) / _gameManager->getPaddle2()->getBounds().width;
+        _direction.x = paddlePositionProportion * 2.0f - 1.0f;
+
+        // Adjust position to avoid getting stuck inside the paddle
+        _sprite.setPosition(_sprite.getPosition().x, _gameManager->getPaddle2()->getBounds().top + _gameManager->getPaddle2()->getBounds().height);
+
     }
 
     // collision with bricks
