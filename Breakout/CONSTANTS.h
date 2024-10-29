@@ -21,8 +21,6 @@ constexpr float PADDLE_WIDTH = 150.0f;
 constexpr float PADDLE_HEIGHT = 20.0f;
 constexpr float PADDLE_SPEED = 300.0f;
 
-// paddle 2 setting
-
 
 // Ball settings
 constexpr float BALL_RADIUS = 10.0f;
